@@ -51,6 +51,30 @@ class RoleService {
     return role;
   }
 
+  async deletarRolePorId(id) {
+    const role = await database.roles.findOne({
+      where: {
+        id: id,
+      },
+    });
+
+    if (!role) {
+      throw new Error("Role informado não cadastrado!");
+    }
+
+    try {
+      await database.roles.destroy({
+        where: {
+          id: id,
+        },
+      });
+
+      return "Usuario Deletado!";
+    } catch (error) {
+      throw new Error("Erro ao tentar apagar role");
+    }
+  }
+
   //   async deletarProdutoPorId(id) {
   //     const produto = await database.produtos.findOne({
   //       where: {

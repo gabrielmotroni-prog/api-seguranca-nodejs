@@ -17,8 +17,6 @@ class RoleController {
 
   static async buscarTodasRoles(req, res) {
     try {
-      //const { nome, descricao } = req.body;
-
       const role = await roleService.buscarTodasRoles();
 
       return res.status(201).json(role);
@@ -34,6 +32,18 @@ class RoleController {
       const role = await roleService.buscarRolePorId(id);
 
       return res.status(201).json(role);
+    } catch (error) {
+      return res.status(400).json({ message: error.message });
+    }
+  }
+
+  static async deletarRolePorId(req, res) {
+    try {
+      const { id } = req.params;
+
+      const role = await roleService.deletarRolePorId(id);
+
+      return res.status(200).json(role);
     } catch (error) {
       return res.status(400).json({ message: error.message });
     }
