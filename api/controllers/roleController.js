@@ -37,6 +37,20 @@ class RoleController {
     }
   }
 
+  static async editarRole(req, res) {
+    try {
+      const { id } = req.params;
+
+      const { nome, descricao } = req.body;
+
+      const role = await roleService.editarRole(id, { nome, descricao });
+
+      return res.status(200).json(role);
+    } catch (error) {
+      return res.status(400).json({ message: error.message });
+    }
+  }
+
   static async deletarRolePorId(req, res) {
     try {
       const { id } = req.params;

@@ -75,53 +75,28 @@ class RoleService {
     }
   }
 
-  //   async deletarProdutoPorId(id) {
-  //     const produto = await database.produtos.findOne({
-  //       where: {
-  //         id: id,
-  //       },
-  //     });
+  async editarRole(id, dto) {
+    const role = await database.roles.findOne({
+      where: {
+        id: id,
+      },
+    });
 
-  //     if (!produto) {
-  //       throw new Error("Produto informado não cadastrado!");
-  //     }
+    if (!role) {
+      throw new Error("Role informado não cadastrado!");
+    }
 
-  //     try {
-  //       await database.produtos.destroy({
-  //         where: {
-  //           id: id,
-  //         },
-  //       });
-  //     } catch (error) {
-  //       console.error("Message error: ", error.message);
-  //       throw error;
-  //     }
-  //   }
+    try {
+      role.nome = dto.nome;
+      role.descricao = dto.descricao;
 
-  //   async editarProduto(dto) {
-  //     const produto = await database.produtos.findOne({
-  //       where: {
-  //         id: dto.id,
-  //       },
-  //     });
+      await role.save();
 
-  //     if (!produto) {
-  //       throw new Error("Produto informado não cadastrado!");
-  //     }
-
-  //     try {
-  //       produto.nome = dto.nome;
-  //       produto.descricao = dto.descricao;
-  //       produto.preco = dto.preco;
-
-  //       await produto.save();
-
-  //       return await produto.reload();
-  //     } catch (error) {
-  //       console.error("Message error: ", error.message);
-  //       throw error;
-  //     }
-  //   }
+      return await role.reload();
+    } catch (error) {
+      throw new Error("Erro ao tentar editar role");
+    }
+  }
 }
 
 module.exports = RoleService;
