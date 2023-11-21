@@ -27,6 +27,16 @@ class RoleService {
     }
   }
 
+  async buscarTodasRoles() {
+    try {
+      const roles = await database.roles.findAll({});
+
+      return roles;
+    } catch (error) {
+      throw new Error("Erro ao tentar obter lista de roles");
+    }
+  }
+
   //   async buscarTodosProdutos() {
   //     const produtos = await database.produtos.findAll();
 
