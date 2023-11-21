@@ -5,7 +5,7 @@ const router = Router();
 
 router.post("/roles", RoleController.cadastrar);
 router.get("/roles", RoleController.buscarTodasRoles);
-router.get("/roles/:id");
+router.get("/roles/:id", RoleController.buscarRolePorId);
 router.delete("/roles/:id");
 router.put("/roles/:id");
 

@@ -37,25 +37,19 @@ class RoleService {
     }
   }
 
-  //   async buscarTodosProdutos() {
-  //     const produtos = await database.produtos.findAll();
+  async buscarRolePorId(id) {
+    const role = await database.roles.findOne({
+      where: {
+        id: id,
+      },
+    });
 
-  //     return produtos;
-  //   }
+    if (!role) {
+      throw new Error("Role informado não cadastrado!");
+    }
 
-  //   async buscarProdutoPorId(id) {
-  //     const produto = await database.produtos.findOne({
-  //       where: {
-  //         id: id,
-  //       },
-  //     });
-
-  //     if (!produto) {
-  //       throw new Error("Produto informado não cadastrado!");
-  //     }
-
-  //     return produto;
-  //   }
+    return role;
+  }
 
   //   async deletarProdutoPorId(id) {
   //     const produto = await database.produtos.findOne({
