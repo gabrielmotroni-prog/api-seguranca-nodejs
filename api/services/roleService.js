@@ -75,10 +75,10 @@ class RoleService {
     }
   }
 
-  async editarRole(id, dto) {
+  async editarRole(dto) {
     const role = await database.roles.findOne({
       where: {
-        id: id,
+        id: dto.id,
       },
     });
 
