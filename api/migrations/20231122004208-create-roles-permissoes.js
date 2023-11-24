@@ -9,10 +9,10 @@ module.exports = {
         primaryKey: true,
         type: Sequelize.INTEGER,
       },
-      usuario_id: {
+      role_id: {
         type: Sequelize.UUID,
         references: {
-          model: "usuarios",
+          model: "roles",
           key: "id",
         },
         onDelete: "CASCADE",

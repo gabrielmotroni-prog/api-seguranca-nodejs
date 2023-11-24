@@ -77,6 +77,50 @@ class SegurancaService {
 
     return novoUsuario;
   }
+  async cadastrarPermissoesRoles(dto) {
+    //buscar se id da role é valido
+    const role = await database.roles.findOne({
+      include: [
+        {
+          model: database.permissoes,
+          as: "roles_das_permissoes",
+          attributes: ["id", "nome", "descricao"],
+        },
+      ],
+    });
+
+    if (!role) {
+      throw new Error("Role não cadastrada");
+    }
+
+    //busca id das permissoes informadas validas
+    const permissoesCadastradas = await database.permissoes.findAll({
+      where: {
+        //procura array de ids
+        id: {
+          [Sequelize.Op.in]: dto.permissoes,
+        },
+      },
+    });
+
+    //limpar lista de permissoes da role
+    await role.removeRoles_das_permissoes(role.roles_das_permissoes);
+
+    //atribui novas permissoes a role
+    await role.addRoles_das_permissoes(permissoesCadastradas);
+
+    //pesquisa role com novas permissoes
+    const novaRole = await database.roles.findOne({
+      include: [
+        {
+          model: database.permissoes,
+          as: "roles_das_permissoes",
+          attributes: ["id", "nome", "descricao"],
+        },
+      ],
+    });
+    return novaRole;
+  }
 }
 
 module.exports = SegurancaService;
