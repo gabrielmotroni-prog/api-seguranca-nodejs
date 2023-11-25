@@ -2,6 +2,10 @@ const { verify, decode } = require("jsonwebtoken");
 
 const jsonSecret = require("../config/jsonSecret");
 
+/**
+ * verifica autenticacao do usuario
+ */
+
 module.exports = async (req, res, next) => {
   //verifica existencia do token
   const token = req.headers.authorization;

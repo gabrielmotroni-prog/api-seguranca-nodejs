@@ -87,6 +87,9 @@ class SegurancaService {
           attributes: ["id", "nome", "descricao"],
         },
       ],
+      where: {
+        id: dto.roleId,
+      },
     });
 
     if (!role) {
@@ -118,6 +121,9 @@ class SegurancaService {
           attributes: ["id", "nome", "descricao"],
         },
       ],
+      where: {
+        id: dto.roleId,
+      },
     });
     return novaRole;
   }
